@@ -11,7 +11,7 @@ import { useNavigation } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import STORAGE from '../../constants/storage'
 import { useDispatch } from 'react-redux'
-import {setAuthData} from '../../redux/authSlice'
+import {setAuthData} from '../../redux/slices/authSlice'
 
 
 const Login = () => {

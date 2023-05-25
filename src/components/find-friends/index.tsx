@@ -1,5 +1,5 @@
 import { Avatar, Box, Divider, HStack, ScrollView, Text, VStack, useColorMode, useTheme, useToast } from 'native-base'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CustomBtn from '../btn/CustomButton'
 import CustomInput from '../input/CustomInput'
 import Feather from 'react-native-vector-icons/Feather'
@@ -14,14 +14,24 @@ import { FlashList } from '@shopify/flash-list'
 import ListItem from './ListItem'
 import Header from '../headers/Header'
 import CustomTouchableOpacity from '../btn/CustomTouchableOpacity'
+import { useDispatch } from 'react-redux'
+import { fetchFriends } from '../../redux/slices/friends-slice'
 
 const FindFriends = () => {
   const navigation = useNavigation()
+  const friendState = useAppSelector(state=>state.friends)
+  console.log(friendState)
     const authUser = useAppSelector(state=>state.auth)
   const toast = useToast()
   const theme = useTheme()
   const {colorMode} = useColorMode()
   const themeColor = colorMode === "light" ? "coolGray.800" : "warmGray.50"
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    dispatch(fetchFriends())
+  },[])
+
   return (
     <VStack flex={1} >
       <Header label="Find Friends" />

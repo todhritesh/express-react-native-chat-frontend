@@ -1,6 +1,6 @@
 import { Box, Image, Spinner, Text, Toast, VStack, useToast } from 'native-base'
 import React, { useEffect, useState } from 'react'
-import {setAuthData} from "../../redux/authSlice"
+import {setAuthData} from "../../redux/slices/authSlice"
 import api from '../../services/api'
 import { useNavigation } from '@react-navigation/native'
 import NAVIGATIONROUTES from '../../constants/navigation-routes'
