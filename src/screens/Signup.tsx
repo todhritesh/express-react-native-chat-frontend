@@ -4,7 +4,7 @@ import Signup from '../components/signup'
 
 const SignupScreen = () => {
   return (
-    <ThemeBox flex={1} px={2} >
+    <ThemeBox px={2} >
       <Signup />
     </ThemeBox>
   )

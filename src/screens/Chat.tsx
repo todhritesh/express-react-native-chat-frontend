@@ -1,13 +1,13 @@
 import React from 'react'
-import Login from '../components/login'
+import Chat from '../components/chat'
 import ThemeBox from '../components/ThemeBox'
 
-const LoginScreen = () => {
+const ChatScreen = () => {
   return (
     <ThemeBox  px={2} >
-      <Login />
+      <Chat />
     </ThemeBox>
   )
 }
 
-export default LoginScreen
+export default ChatScreen

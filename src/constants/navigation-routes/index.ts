@@ -1,8 +1,14 @@
 const NAVIGATIONROUTES  = {
     Login:'Login',
     Signup:'Signup',
-    Home:'Home',
+    BottomTabNavigator:'BottomTabNavigator',
     Splash:'Splash',
+    Chat:'Chat',
+    Friends:'Friends',
+    RecentChats:'RecentChats',
+    FriendRequests:'FriendRequests',
+    FindFriends:'FindFriends',
+    Account:'Account',
 } 
 
 

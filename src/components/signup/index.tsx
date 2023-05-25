@@ -61,7 +61,6 @@ const Signup = () => {
         handleApiError(err)
       }
 
-
     }
   return (
     <Box justifyContent={'center'} alignItems={'center'} flex={1}  >
@@ -84,6 +83,11 @@ const Signup = () => {
         </VStack>
         <VStack w={'1/2'} alignSelf="center" >
          <CustomBtn label="Signup" onPress={handleSignup} />
+        </VStack>
+        <VStack alignSelf="flex-end" >
+          <Text fontSize={16} >Already have account? 
+            <Text onPress={()=>navigation.navigate(NAVIGATIONROUTES.Login)} fontWeight="bold" color="blue.600" > Login Now</Text>
+          </Text>
         </VStack>
       </VStack>
     </Box>

@@ -2,21 +2,30 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from '../screens/Login';
 import SignupScreen from '../screens/Signup';
-import HomeScreen from '../screens/Home';
 import NAVIGATIONROUTES from '../constants/navigation-routes';
 import SplashScreen from '../screens/SplashScreen';
+import BottomTabNavigator from './BottomTabNavigator';
+import { StatusBar } from 'react-native';
+import { useTheme } from 'native-base';
+import FindFriendsScreen from '../screens/FindFriends';
 
 const Stack = createStackNavigator();
 
 export default function StackNavigator() {
+  const theme = useTheme()
   return (
-    <NavigationContainer>
+    <>
+      <NavigationContainer>
+        <StatusBar backgroundColor={theme.colors.blue['500']} />
+
         <Stack.Navigator>
-            <Stack.Screen options={{headerShown:false}} name={NAVIGATIONROUTES.Splash} component={SplashScreen} />
-            <Stack.Screen options={{headerShown:false}} name={NAVIGATIONROUTES.Login} component={LoginScreen} />
-            <Stack.Screen options={{headerShown:false}} name={NAVIGATIONROUTES.Signup} component={SignupScreen} />
-            <Stack.Screen options={{headerShown:false}} name={NAVIGATIONROUTES.Home} component={HomeScreen} />
+          <Stack.Screen options={{ headerShown: false }} name={NAVIGATIONROUTES.FindFriends} component={FindFriendsScreen} />
+          <Stack.Screen options={{ headerShown: false }} name={NAVIGATIONROUTES.BottomTabNavigator} component={BottomTabNavigator} />
+          <Stack.Screen options={{ headerShown: false }} name={NAVIGATIONROUTES.Login} component={LoginScreen} />
+          <Stack.Screen options={{ headerShown: false }} name={NAVIGATIONROUTES.Splash} component={SplashScreen} />
+          <Stack.Screen options={{ headerShown: false }} name={NAVIGATIONROUTES.Signup} component={SignupScreen} />
         </Stack.Navigator>
-    </NavigationContainer>
+      </NavigationContainer>
+    </>
   );
 }

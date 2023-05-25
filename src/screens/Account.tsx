@@ -1,13 +1,13 @@
 import React from 'react'
+import Account from '../components/account'
 import ThemeBox from '../components/ThemeBox'
-import Splash from '../components/splash'
 
-const SplashScreen = () => {
+const AccountScreen = () => {
   return (
     <ThemeBox px={2} >
-      <Splash />
+      <Account />
     </ThemeBox>
   )
 }
 
-export default SplashScreen
+export default AccountScreen

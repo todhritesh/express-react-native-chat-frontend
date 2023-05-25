@@ -49,7 +49,7 @@ const Login = () => {
       })
 
       console.log(res.data)
-      navigation.navigate(NAVIGATIONROUTES.Home)
+      navigation.navigate(NAVIGATIONROUTES.BottomTabNavigator)
 
     }catch(err){
       handleApiError(err)
@@ -70,6 +70,12 @@ const Login = () => {
         <VStack w={'1/2'} alignSelf="center" >
          <CustomBtn label="Login" onPress={handleLogin} />
         </VStack>
+        <VStack alignSelf="flex-end" >
+          <Text fontSize={16} >Don't have account? 
+            <Text onPress={()=>navigation.navigate(NAVIGATIONROUTES.Signup)} fontWeight="bold" color="blue.600" > Signup Now</Text>
+          </Text>
+        </VStack>
+        
       </VStack>
     </Box>
   )

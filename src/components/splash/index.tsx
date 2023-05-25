@@ -29,7 +29,7 @@ const Signup = () => {
                 })
                 dispatch(setAuthData({token:res.data.token,user:res.data.user}))
 
-                navigation.navigate(NAVIGATIONROUTES.Home)
+                navigation.navigate(NAVIGATIONROUTES.BottomTabNavigator)
                 console.log(res.data)
 
             }else{

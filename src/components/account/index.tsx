@@ -15,7 +15,6 @@ const Login = () => {
   const navigation = useNavigation()
     const authUser = useAppSelector(state=>state.auth)
   const toast = useToast()
-console.log(authUser,"in home")
   return (
     <Box justifyContent={'center'} alignItems={'center'} flex={1}  >
       <Text>Home</Text>

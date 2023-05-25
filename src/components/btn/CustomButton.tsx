@@ -9,7 +9,7 @@ interface ICustomBtnProps {
 
 const CustomBtn : React.FC<ICustomBtnProps> = ({label,onPress}) => {
   return (
-    <Button bg={'secondary.600'} px={4} _pressed={{bg:'secondary.700'}} onPress={onPress}  >{label}</Button>
+    <Button bg={'blue.500'} px={4} _pressed={{bg:'blue.600'}} onPress={onPress}  >{label}</Button>
 
   )
 }
