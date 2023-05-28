@@ -7,6 +7,7 @@ const NAVIGATIONROUTES  = {
     Friends:'Friends',
     RecentChats:'RecentChats',
     FriendRequests:'FriendRequests',
+    SentRequests:'SentRequests',
     FindFriends:'FindFriends',
     Account:'Account',
 } 

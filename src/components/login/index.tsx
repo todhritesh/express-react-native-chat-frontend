@@ -12,6 +12,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import STORAGE from '../../constants/storage'
 import { useDispatch } from 'react-redux'
 import {setAuthData} from '../../redux/slices/authSlice'
+import setFcmToken from '../../services/fcmToken'
 
 
 const Login = () => {
@@ -20,7 +21,7 @@ const Login = () => {
 
   const [passVisible,setpassVisible] = useState(false)
   const toast = useToast()
-  const [email,setEmail] = useState('email')
+  const [email,setEmail] = useState('user1@gmail.com')
   const [password,setPassword] = useState("pass")
 
   async function handleLogin () {
@@ -34,8 +35,10 @@ const Login = () => {
         return
       }
 
+      const fcmToken = await setFcmToken()
+
       const res = await api.post('/auth/login',{
-        password,email
+        password,email,fcmToken
       })
 
       await AsyncStorage.setItem(STORAGE.AuthInfo,JSON.stringify(res.data))

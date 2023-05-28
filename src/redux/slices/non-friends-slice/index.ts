@@ -1,7 +1,6 @@
 import { createSlice , createAsyncThunk , PayloadAction } from "@reduxjs/toolkit";
 import api from "../../../services/api";
 import getAuthToken from "../../../services/getAuthToken";
-import { AxiosError } from "axios";
 import User from "../../../types/auth";
 
 interface FriendState{
@@ -18,18 +17,19 @@ const initialState: FriendState = {
     error: null,
   };
 
-export const fetchFriends = createAsyncThunk<User[] , void , {rejectValue:string}>(
-    'friends/fetchFriends',
+export const fetchNonFriend = createAsyncThunk<User[] , void , {rejectValue:string}>(
+    'friends/fetchNonFriends',
     async (_ , {rejectWithValue}) => {
         try {
             const token = await getAuthToken()
+            console.log(token,'token')
             if(token){
-                const res = await api.get('/friends',{
+                const res = await api.get('/friends/non-friends',{
                     headers:{
                         Authorization:token
                     }
                 })
-                const data = res.data.friends.map(item=>({...item,defaultStatus:true}))
+                const data = res.data.users.map(item=>({...item,defaultStatus:true}))
                 return data as User[]
             }
             return rejectWithValue('Something went wrong');
@@ -40,23 +40,35 @@ export const fetchFriends = createAsyncThunk<User[] , void , {rejectValue:string
     }
 )
 
-const friendSlice  = createSlice({
-    name:'friends' ,
+const nonFriendSlice  = createSlice({
+    name:'nonFriends' ,
     initialState ,
-    reducers:{},
+    reducers:{
+        changeDefaultStatus : (state , action: PayloadAction<string>) => {
+            state.data = state.data.map(item=>{
+                if(item._id===action.payload){
+                    return {
+                        ...item,
+                        defaultStatus:false
+                    }
+                }
+                return item
+            })
+        }
+    },
     extraReducers:(builder) => {
         builder
-            .addCase(fetchFriends.pending , state =>{
+            .addCase(fetchNonFriend.pending , state =>{
                 state.loading = true
             })
-            .addCase(fetchFriends.fulfilled , (state , action : PayloadAction<User[]>)=>{
+            .addCase(fetchNonFriend.fulfilled , (state , action : PayloadAction<User[]>)=>{
                 state.loading = false
                 state.data = action.payload
                 if(!state.initialLoading){
                     state.initialLoading = true
                 }
             })
-            .addCase(fetchFriends.rejected, (state, action) => {
+            .addCase(fetchNonFriend.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string;
                 state.initialLoading = true
@@ -65,4 +77,5 @@ const friendSlice  = createSlice({
 
 })
 
-export default friendSlice.reducer;
+export default nonFriendSlice.reducer;
+export const {changeDefaultStatus} = nonFriendSlice.actions

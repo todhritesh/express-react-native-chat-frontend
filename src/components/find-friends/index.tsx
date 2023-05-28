@@ -14,62 +14,73 @@ import { FlashList } from '@shopify/flash-list'
 import ListItem from './ListItem'
 import Header from '../headers/Header'
 import CustomTouchableOpacity from '../btn/CustomTouchableOpacity'
-import { useDispatch } from 'react-redux'
-import { fetchFriends } from '../../redux/slices/friends-slice'
+import LoadingContainer from '../loading/LoadingContainer'
+import useAppDispatch from '../../redux/hooks/useAppDispatch'
+import { fetchNonFriend } from '../../redux/slices/non-friends-slice'
 
 const FindFriends = () => {
   const navigation = useNavigation()
-  const friendState = useAppSelector(state=>state.friends)
-  console.log(friendState)
-    const authUser = useAppSelector(state=>state.auth)
+  const nonFriendState = useAppSelector(state=>state.nonFriends)
+  console.log(nonFriendState)
+  const authUser = useAppSelector(state=>state.auth)
   const toast = useToast()
-  const theme = useTheme()
-  const {colorMode} = useColorMode()
-  const themeColor = colorMode === "light" ? "coolGray.800" : "warmGray.50"
-  const dispatch = useDispatch()
+  
+  const dispatch = useAppDispatch()
 
   useEffect(()=>{
-    dispatch(fetchFriends())
+    dispatch(fetchNonFriend())
   },[])
 
   return (
     <VStack flex={1} >
       <Header label="Find Friends" />
-      <Box flex={1} px={2}  >
-          <FlashList 
-            ListHeaderComponent={
-            <Box>
-              <HStack justifyContent="space-between" >
-                <HStack alignItems='center' justifyContent="center" my={4} w={'1/2'} borderRightColor={themeColor} borderRightWidth={1} >
-                  <CustomTouchableOpacity>
-                    <VStack flex={1} justifyContent="center" >
-                      <Text textAlign="center" fontSize={24} fontWeight="bold" >View </Text>
-                      <Text textAlign="center" fontSize={20} >Friend Requests</Text>
-                    </VStack>
-                  </CustomTouchableOpacity>
-                </HStack>
-                <HStack alignItems='center' justifyContent="center" my={4} w={'1/2'} borderLeftColor={themeColor} borderLeftWidth={1} >
-                  <CustomTouchableOpacity>
-                    <VStack flex={1} justifyContent="center" >
-                      <Text textAlign="center" fontSize={24} fontWeight="bold" >View </Text>
-                      <Text textAlign="center" fontSize={20} >Sent Requests</Text>
-                    </VStack>
-                  </CustomTouchableOpacity>
-                </HStack>
-              </HStack>
-              <Divider />
-            </Box>
-            }
-            data={Array.from({ length: 30 }, (_, i) => ({ id: i + 1 }))}
-            keyExtractor={item=>item.id.toString()}
-            renderItem={({item,index})=><ListItem item={item} index={index} />}
-            estimatedItemSize={58}
-            ItemSeparatorComponent={()=><Divider/>}
-            showsVerticalScrollIndicator={false}
-          />
-      </Box>
+      <LoadingContainer error={nonFriendState.error} initialLoading={!nonFriendState.initialLoading} loadingMessage='Loading Users ...' >
+        <Box flex={1} px={2}  >
+            <FlashList 
+              ListHeaderComponent={<ListHeaderComponent/>}
+              data={nonFriendState.data}
+              keyExtractor={item=>item._id.toString()}
+              renderItem={({item,index})=><ListItem item={item} index={index} />}
+              estimatedItemSize={58}
+              ItemSeparatorComponent={()=><Divider/>}
+              showsVerticalScrollIndicator={false}
+            />
+        </Box>
+      </LoadingContainer>
     </VStack>
   )
 }
 
 export default FindFriends
+
+
+const ListHeaderComponent = () => {
+  const theme = useTheme()
+  const {colorMode} = useColorMode()
+  const themeColor = colorMode === "light" ? "coolGray.800" : "warmGray.50"
+  const navigation = useNavigation()
+
+  return (
+    <Box>
+      <HStack justifyContent="space-between" >
+        <HStack alignItems='center' justifyContent="center" my={4} w={'1/2'} borderRightColor={themeColor} borderRightWidth={1} >
+          <CustomTouchableOpacity onPress={()=>navigation.navigate(NAVIGATIONROUTES.FriendRequests)} >
+            <VStack flex={1} justifyContent="center" >
+              <Text textAlign="center" fontSize={24} fontWeight="bold" >View </Text>
+              <Text textAlign="center" fontSize={20} >Friend Requests</Text>
+            </VStack>
+          </CustomTouchableOpacity>
+        </HStack>
+        <HStack alignItems='center' justifyContent="center" my={4} w={'1/2'} borderLeftColor={themeColor} borderLeftWidth={1} >
+          <CustomTouchableOpacity onPress={()=>navigation.navigate(NAVIGATIONROUTES.SentRequests)} >
+            <VStack flex={1} justifyContent="center" >
+              <Text textAlign="center" fontSize={24} fontWeight="bold" >View </Text>
+              <Text textAlign="center" fontSize={20} >Sent Requests</Text>
+            </VStack>
+          </CustomTouchableOpacity>
+        </HStack>
+      </HStack>
+      <Divider />
+    </Box>
+  )
+}
