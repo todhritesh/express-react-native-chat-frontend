@@ -37,7 +37,7 @@ const SentRequest = () => {
       <LoadingContainer error={friendRequestState.error} initialLoading={!friendRequestState.initialLoading} loadingMessage='Loading Users ...' >
         <Box flex={1} px={2}  >
             <FlashList 
-              ListHeaderComponent={<ListHeaderComponent/>}
+              // ListHeaderComponent={<ListHeaderComponent/>}
               data={friendRequestState.data}
               keyExtractor={item=>item._id.toString()}
               renderItem={({item,index})=><ListItem item={item} index={index} />}

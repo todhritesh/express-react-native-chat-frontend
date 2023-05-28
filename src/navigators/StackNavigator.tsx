@@ -10,6 +10,7 @@ import { useTheme } from 'native-base';
 import FindFriendsScreen from '../screens/FindFriends';
 import FriendRequestScreen from '../screens/FriendRequest';
 import SentRequestScreen from '../screens/SentRequest';
+import navigationService from '../services/navigationService';
 
 const Stack = createStackNavigator();
 
@@ -17,7 +18,7 @@ export default function StackNavigator() {
   const theme = useTheme()
   return (
     <>
-      <NavigationContainer>
+        <NavigationContainer ref={(ref) => navigationService.setTopLevelNavigator(ref)}>
         <StatusBar backgroundColor={theme.colors.blue['500']} />
 
         <Stack.Navigator>

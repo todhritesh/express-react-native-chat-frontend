@@ -21,7 +21,7 @@ const Login = () => {
 
   const [passVisible,setpassVisible] = useState(false)
   const toast = useToast()
-  const [email,setEmail] = useState('user1@gmail.com')
+  const [email,setEmail] = useState('anjali@gmail.com')
   const [password,setPassword] = useState("pass")
 
   async function handleLogin () {

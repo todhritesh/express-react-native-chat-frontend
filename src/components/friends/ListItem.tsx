@@ -12,7 +12,7 @@ const ListItem : React.FC<ListItemProps> = ({item,index}) => {
     const theme = useTheme()
   return (
     <CustomTouchableOpacity>
-        <HStack alignItems='center' justifyContent="space-between" my={2} >
+        <HStack  alignItems='center' justifyContent="space-between" py={2} >
             <HStack alignItems='center' space={3} >
                 <Avatar source={{uri:"https://picsum.photos/333/333"}} size={'md'} />
                 <VStack>

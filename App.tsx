@@ -7,13 +7,27 @@ import theme from './src/config/theme'
 import { Provider } from 'react-redux'
 import store from './src/redux/store'
 import messaging from '@react-native-firebase/messaging';
+import navigationService from './src/services/navigationService'
+import NAVIGATIONROUTES from './src/constants/navigation-routes'
 
 
 const App = () => {
 
   useEffect(()=>{
     messaging().setBackgroundMessageHandler(async (remoteMessage)=>{
-      console.log("Message handled in the background",remoteMessage)
+      // console.log("Message handled in the background",remoteMessage)
+      // console.log("checkkk data===> ",remoteMessage?.data)
+      console.log("backkkkkk gorund ==========")
+    })
+
+    messaging().onNotificationOpenedApp(async remoteMessage=>{
+      console.log("on Open app=======>",remoteMessage)
+      const NavigationScreen = remoteMessage?.data?.NavigationScreen
+      const userId = remoteMessage?.data?.userId
+      if(NavigationScreen){
+        console.log(NavigationScreen)
+          navigationService.navigate(NavigationScreen,{userId})
+      }
     })
 
     const unsubscribe = messaging().onMessage(async (remoteMessage)=>{
