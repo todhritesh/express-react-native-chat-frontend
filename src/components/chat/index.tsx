@@ -17,6 +17,7 @@ import {
   reducer,Actions,initialState
 } from './reducer'
 import useAuthApi from '../../services/hooks/useAuthApi'
+import { useSocket } from '../../context/SocketProvider'
 
 
 const RecentChats = () => {
@@ -31,6 +32,7 @@ const RecentChats = () => {
   const api = useAuthApi()
   const textMsgRef = useRef({__msg:""})
   const {colorMode} = useColorMode()
+  const socket = useSocket()
   
 
   const handleChangeText = useCallback((val:string)=>{
@@ -53,6 +55,11 @@ const RecentChats = () => {
         dispatch({type:Actions.Error,payload:err.message})
       }
     }
+    socket?.emit('one_to_one_join_room',conversationId)
+    socket?.on('one_to_one_receive_message',msg=>{
+      dispatch({type:Actions.AppendData,payload:msg})
+
+    })
     fetchMessages()
   },[])
 
@@ -70,6 +77,7 @@ const RecentChats = () => {
       receiver,
       "textMsg":textMsgRef.current.__msg,
     }
+    socket?.emit('one_to_one_send_message',{ room_id:conversationId, data:msg })
     dispatch({type:Actions.AppendData,payload:msg})
     console.log(res.data)
     handleClearMsg()

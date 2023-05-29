@@ -1,6 +1,6 @@
 import { Alert, StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import StackNavigator from './src/navigators/StackNavigator'
 import { NativeBaseProvider, Toast, useTheme } from 'native-base'
 import theme from './src/config/theme'
@@ -8,7 +8,8 @@ import { Provider } from 'react-redux'
 import store from './src/redux/store'
 import messaging from '@react-native-firebase/messaging';
 import navigationService from './src/services/navigationService'
-import NAVIGATIONROUTES from './src/constants/navigation-routes'
+import { SocketProvider } from './src/context/SocketProvider'
+
 
 
 const App = () => {
@@ -46,7 +47,9 @@ const App = () => {
     <NativeBaseProvider theme={theme} >
       <SafeAreaView style={{ flex: 1 }} >
         <Provider store={store} >
-          <StackNavigator />
+          <SocketProvider>
+            <StackNavigator />
+          </SocketProvider>
         </Provider>
       </SafeAreaView>
     </NativeBaseProvider>
