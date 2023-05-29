@@ -15,8 +15,6 @@ const App = () => {
 
   useEffect(()=>{
     messaging().setBackgroundMessageHandler(async (remoteMessage)=>{
-      // console.log("Message handled in the background",remoteMessage)
-      // console.log("checkkk data===> ",remoteMessage?.data)
       console.log("backkkkkk gorund ==========")
     })
 
@@ -33,7 +31,7 @@ const App = () => {
     const unsubscribe = messaging().onMessage(async (remoteMessage)=>{
       // Alert.alert("A new Fcm message arrived",JSON.stringify(remoteMessage))
       Toast.show({
-        title:"foreground notification",
+        title:remoteMessage.notification?.body,
         bg:"success.500",
         duration:3000,
         placement:'top'

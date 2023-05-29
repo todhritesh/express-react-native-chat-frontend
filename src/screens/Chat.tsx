@@ -4,7 +4,7 @@ import ThemeBox from '../components/ThemeBox'
 
 const ChatScreen = () => {
   return (
-    <ThemeBox  px={2} >
+    <ThemeBox >
       <Chat />
     </ThemeBox>
   )

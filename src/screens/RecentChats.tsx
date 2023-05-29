@@ -4,7 +4,7 @@ import ThemeBox from '../components/ThemeBox'
 
 const RecentChatsScreen = () => {
   return (
-    <ThemeBox px={2} >
+    <ThemeBox >
       <RecentChats />
     </ThemeBox>
   )

@@ -11,6 +11,7 @@ import FindFriendsScreen from '../screens/FindFriends';
 import FriendRequestScreen from '../screens/FriendRequest';
 import SentRequestScreen from '../screens/SentRequest';
 import navigationService from '../services/navigationService';
+import ChatScreen from '../screens/Chat';
 
 const Stack = createStackNavigator();
 
@@ -23,6 +24,7 @@ export default function StackNavigator() {
 
         <Stack.Navigator>
           <Stack.Screen options={{ headerShown: false }} name={NAVIGATIONROUTES.Login} component={LoginScreen} />
+          <Stack.Screen options={{ headerShown: false }} name={NAVIGATIONROUTES.Chat} component={ChatScreen} />
           <Stack.Screen options={{ headerShown: false }} name={NAVIGATIONROUTES.BottomTabNavigator} component={BottomTabNavigator} />
           <Stack.Screen options={{ headerShown: false }} name={NAVIGATIONROUTES.FindFriends} component={FindFriendsScreen} />
           <Stack.Screen options={{ headerShown: false }} name={NAVIGATIONROUTES.FriendRequests} component={FriendRequestScreen} />
